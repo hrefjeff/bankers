@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-void checkColumn(int, int, vector< vector<int> >&);
+void checkIndex(int, int, vector< vector<int> >&);
 void checkRow(int, vector< vector<int> >&);
 
 int main()
@@ -36,7 +36,7 @@ int main()
 	}
 
 	// check row 1, index 3
-	checkColumn(0, 3, row);
+	checkIndex(0, 3, row);
 
 	checkRow(0, row);
 
@@ -44,7 +44,7 @@ int main()
 	return 0;	
 }
 
-void checkColumn(int rowIndex, int columnIndex, vector< vector<int> > &matrix)
+void checkIndex(int rowIndex, int columnIndex, vector< vector<int> > &matrix)
 {
 	cout << "Index (" << rowIndex << "," << columnIndex << ") contains: " << matrix[rowIndex][columnIndex] << endl;
 }
