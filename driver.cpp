@@ -40,6 +40,7 @@ int main()
 
 	checkRow(0, row);
 
+	system("pause");
 	return 0;	
 }
 
