@@ -3,6 +3,7 @@
 using namespace std;
 
 void checkColumn(int, int, vector< vector<int> >&);
+void checkRow(int, vector< vector<int> >&);
 
 int main()
 {
@@ -37,10 +38,20 @@ int main()
 	// check row 1, index 3
 	checkColumn(0, 3, row);
 
+	checkRow(0, row);
+
 	return 0;	
 }
 
 void checkColumn(int rowIndex, int columnIndex, vector< vector<int> > &matrix)
 {
 	cout << "Index (" << rowIndex << "," << columnIndex << ") contains: " << matrix[rowIndex][columnIndex] << endl;
+}
+
+void checkRow(int row, vector< vector<int> > &matrix)
+{
+	for (int i=0; i<matrix[row].size(); i++)
+	{
+		cout << "Column " << i << " contains:" << matrix[row][i] << endl;
+	}
 }
