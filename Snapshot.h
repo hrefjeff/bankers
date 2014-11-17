@@ -182,38 +182,50 @@ bool Snapshot::testSafeState()
 		// Loop through finish array
 		for (int i = 0; i<finishArray.size(); i++)
 		{
+			cout << "Starting process " << processName.at(i) << endl;
 			// a) if the finish array at [i] is false, that means there's work to do.
 			if (finishArray.at(i) == false)
 			{
+				cout << "Process " << processName.at(i) << " is false; testing resources" << endl;
+				foundGreater = false;
 				// go through the resource list
 				for (int j=0; j<resources; j++)
 				{
 					// b) check if need[i] <= work, if work exceeds the need, we found a potential deadlock
-					if (!(resourceNeed[i].at(j) <= work[j]))
+					if (!(resourceNeed[j].at(i) <= work[j]))
 					{
 						foundGreater = true;
+						cout << "Resource " << j << " is greater than available" << endl;
+						cout << "Going to next process" << endl;
 						break;
 					} 
+					cout << "Resource " << j << " is ok" << endl;
 
 				}
 			
 				// if a need did not exceed work array
 				if (foundGreater == false)
 				{
+					cout << "Resources are all ok; running process" << endl;
 					// update the "work" array: work = work + allocation
 					for (int k=0; k<resources; k++)
-						work[k] = work[k] + resourceAllocation[i].at(k);
+						work[k] = work[k] + resourceAllocation[k].at(i);
 
 					// set finish[i] == true
 					finishArray[i] =  true;
 
 					updatedArray = true;
+
+					cout << "Process " << processName.at(i) << " is done and set to true" << endl;
+					cout << "Restarting..." << endl << endl;
+
 					break;
 				}
 
 			// otherwise, set boolean value to true
 			} else {
 
+				cout << "Process " << processName.at(i) << " is true" << endl;
 				finish = true;
 
 			}
@@ -226,7 +238,7 @@ bool Snapshot::testSafeState()
 		return true;
 
 	// if unsafe
-	else
+	else if (finish == false && updatedArray == false)
 		return false;
 
 }
