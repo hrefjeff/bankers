@@ -177,7 +177,7 @@ bool Snapshot::testSafeState()
 	while (finish == false && updatedArray == true)
 	{
 		updatedArray = false;
-		finish = false;
+		//finish = false;
 
 		// Loop through finish array
 		for (int i = 0; i<finishArray.size(); i++)
@@ -186,6 +186,7 @@ bool Snapshot::testSafeState()
 			// a) if the finish array at [i] is false, that means there's work to do.
 			if (finishArray.at(i) == false)
 			{
+				finish = false;
 				cout << "Process " << processName.at(i) << " is false; testing resources" << endl;
 				foundGreater = false;
 				// go through the resource list
