@@ -16,7 +16,7 @@ int main()
 
 	currentState.PrintState();
 
-
+	cout << currentState.testSafeState() << endl;
 
 
 	// Example Matrix: Allocation for 7.3

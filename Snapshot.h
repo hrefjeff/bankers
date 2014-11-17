@@ -5,8 +5,8 @@
 #include <vector>
 using namespace std;
 
-class Snapshot{
-
+class Snapshot
+{
 	//String vector containing the names of each process
 	vector<string> processName;
 
@@ -20,6 +20,7 @@ class Snapshot{
 	vector<int> resourceAllocation[resources]; //Resources currently allocated
 	vector<int> maxDemand[resources]; //Max resources a process might demand
 	vector<int> resourceNeed[resources]; //Remaining needed resources for a process
+	vector<bool> finishArray;
 
 	//Array of int containing currently available resources (derived by taking
 	//the global resourceArray and subtracting the currently allocated resources
@@ -30,6 +31,7 @@ public:
 	Snapshot();
 	void InputFile(string file);
 	void PrintState();
+	bool testSafeState();
 };
 
 //Constructor
@@ -153,6 +155,78 @@ void Snapshot::PrintState(){
 		cout << left << setw(5) << availableResources[j];
 	}
 	cout << endl << endl;
+}
 
+bool Snapshot::testSafeState()
+{
+
+	// initialize finish array
+	vector<bool> finishArray(processName.size(),false);
+	bool finish = false;
+	bool foundGreater = false;
+	bool updatedArray = true;
+
+	// make work array
+	int work [resources];
+
+	// make the resource copy array
+	for (int i=0; i<resources; i++)
+		work[i] = availableResources[i];
+
+	// step through finish, finish value here means we checked everythang
+	while (finish == false && updatedArray == true)
+	{
+		updatedArray = false;
+		finish = false;
+
+		// Loop through finish array
+		for (int i = 0; i<finishArray.size(); i++)
+		{
+			// a) if the finish array at [i] is false, that means there's work to do.
+			if (finishArray.at(i) == false)
+			{
+				// go through the resource list
+				for (int j=0; j<resources; j++)
+				{
+					// b) check if need[i] <= work, if work exceeds the need, we found a potential deadlock
+					if (!(resourceNeed[i].at(j) <= work[j]))
+					{
+						foundGreater = true;
+						break;
+					} 
+
+				}
+			
+				// if a need did not exceed work array
+				if (foundGreater == false)
+				{
+					// update the "work" array: work = work + allocation
+					for (int k=0; k<resources; k++)
+						work[k] = work[k] + resourceAllocation[i].at(k);
+
+					// set finish[i] == true
+					finishArray[i] =  true;
+
+					updatedArray = true;
+					break;
+				}
+
+			// otherwise, set boolean value to true
+			} else {
+
+				finish = true;
+
+			}
+		}
+
+	// go back to checking finish array
+	}
+
+	if (finish == true)
+		return true;
+
+	// if unsafe
+	else
+		return false;
 
 }
