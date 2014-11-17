@@ -32,6 +32,7 @@ public:
 	void InputFile(string file);
 	void PrintState();
 	bool testSafeState();
+	void resourceRequest(int processIndex, int request []);
 };
 
 //Constructor
@@ -176,8 +177,8 @@ bool Snapshot::testSafeState()
 	// step through finish, finish value here means we checked everythang
 	while (finish == false && updatedArray == true)
 	{
+		cout << "at beginning of finish" << endl;
 		updatedArray = false;
-		finish = false;
 
 		// Loop through finish array
 		for (int i = 0; i<finishArray.size(); i++)
@@ -186,11 +187,13 @@ bool Snapshot::testSafeState()
 			// a) if the finish array at [i] is false, that means there's work to do.
 			if (finishArray.at(i) == false)
 			{
+				finish = false;
 				cout << "Process " << processName.at(i) << " is false; testing resources" << endl;
 				foundGreater = false;
 				// go through the resource list
 				for (int j=0; j<resources; j++)
 				{
+
 					// b) check if need[i] <= work, if work exceeds the need, we found a potential deadlock
 					if (!(resourceNeed[j].at(i) <= work[j]))
 					{
@@ -240,5 +243,58 @@ bool Snapshot::testSafeState()
 	// if unsafe
 	else if (finish == false && updatedArray == false)
 		return false;
+
+}
+
+void Snapshot::resourceRequest(int processIndex, int request [])
+{
+	bool goAheadAndWURK;
+
+	// Check to see if the request is valid.
+	for (int k = 0; k < resources; k++){
+		if (request[k] > resourceArray[k])
+		{
+			cout << "You're requesting more than is available in the system." << endl;
+			cout << "In other words, you bit off more than you can chew." << endl;
+			return;
+		}
+	}
+
+	for (int i=0; i<resources; i++)
+	{
+		if (request[i] <= resourceNeed[i].at(processIndex))
+		{
+			if(request[i] <= availableResources[i])
+			{
+				goAheadAndWURK = true;
+			}
+		}
+	}	
+
+	if (goAheadAndWURK)
+	{
+		for (int j=0; j<resources; j++)
+		{	
+			availableResources[j] = availableResources[j] - request[j];
+			resourceAllocation[j].at(processIndex) = resourceAllocation[j].at(processIndex) + request[j];
+			resourceNeed[j].at(processIndex) = resourceNeed[j].at(processIndex) - request[j]; 
+		}
+	}
+
+	if (testSafeState())
+		cout << "We're cool." << endl;
+	else 
+	{
+		cout << "RUN! RUN FOR YOUR LIVES! YOU'RE NOT SAFE!!!" << endl;
+		cout << "This request is NOT SAFE!!!!!! Reverting back to a safe state . . ." << endl;
+
+		//undo all the poop
+		for (int j=0; j<resources; j++)
+		{	
+			availableResources[j] = availableResources[j] + request[j];
+			resourceAllocation[j].at(processIndex) = resourceAllocation[j].at(processIndex) - request[j];
+			resourceNeed[j].at(processIndex) = resourceNeed[j].at(processIndex) + request[j]; 
+		}
+	}
 
 }

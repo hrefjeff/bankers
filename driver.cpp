@@ -18,6 +18,10 @@ int main()
 
 	cout << currentState.testSafeState() << endl;
 
+	int requestVector[resources] = {0, 4, 2, 0};
+
+	currentState.resourceRequest(1, requestVector);
+
 
 	// Example Matrix: Allocation for 7.3
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
