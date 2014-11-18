@@ -66,7 +66,7 @@ Snapshot::Snapshot() :processName(), resourceAllocation(), maxDemand(), resource
   ---------File format is--------
 
 	processname
-	demandA demandB demandC demandD allocA allocB allocC allocD
+	maxA maxB maxC maxD allocA allocB allocC allocD
 
 	Example:
 	p0
@@ -214,7 +214,7 @@ bool Snapshot::testSafeState()
 	// step through finish, finish value here means we checked everythang
 	while (finish == false && updatedArray == true)
 	{
-		cout << "at beginning of finish" << endl;
+		cout << endl << "At beginning of 'finish' array" << endl;
 		updatedArray = false;
 
 		// Loop through finish array
@@ -327,14 +327,14 @@ void Snapshot::resourceRequest(int processIndex, int request [])
 
 	if (testSafeState())
 	{
-		cout << "We're cool." << endl;
+		cout << endl << "We're cool." << endl << endl;
 
 	} else {
 
-		cout << "RUN! RUN FOR YOUR LIVES! YOU'RE NOT SAFE!!!" << endl;
-		cout << "This request is NOT SAFE!!!!!! Reverting back to a safe state . . ." << endl;
+		cout << endl << "RUN! RUN FOR YOUR LIVES! YOU'RE NOT SAFE!!!" << endl;
+		cout << "This request is NOT SAFE!!!!!! Reverting back to a safe state . . ." << endl << endl;
 
-		//undo all the poop
+		//undo all the changes
 		for (int j=0; j<resources; j++)
 		{	
 			availableResources[j] = availableResources[j] + request[j];
