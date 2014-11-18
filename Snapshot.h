@@ -1,3 +1,11 @@
+/****************************************************
+    Names       : Geoffrey Morris & Jeffrey Allen
+    Date        : CS420 Spring 2014
+    Assignment  : Banker's Algorithm
+    Description : 
+    Due Date    : November 20, 2014
+*****************************************************/
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -35,23 +43,39 @@ public:
 	void resourceRequest(int processIndex, int request []);
 };
 
-//Constructor
+//##########################IMPLEMENTATION##################################################
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Writer(s): Geoffrey Morris
+  Purpose  : Overloaded Constructor for minBinaryHeap
+  Incoming : Desired size of new heap
+  Outgoing : N/A
+  Return   : N/A
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 Snapshot::Snapshot() :processName(), resourceAllocation(), maxDemand(), resourceNeed(){}
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Writer(s): Geoffrey Morris
+  Purpose  : Automation of process input
+  Incoming : Takes a string parameter of the filename
+  			 Which has a list of processes, 
+  			 their max demand and current resource allocation.
+  Outgoing : N/A
+  Return   : N/A
 
-//Input a list of processes, their max demand and current resource allocation.
-//Takes a string parameter of the filename. File format is:
-//
-//processname
-//demandA demandB demandC demandD allocA allocB allocC allocD
-//
-//Example:
-//p0
-//0 0 1 2 0 0 1 2
-//p1
-//1 7 5 0 1 0 0 0
-//
-//@param Geoff Morris 
+  ---------File format is--------
+
+	processname
+	demandA demandB demandC demandD allocA allocB allocC allocD
+
+	Example:
+	p0
+	0 0 1 2 0 0 1 2
+	p1
+	1 7 5 0 1 0 0 0
+  -------------------------------
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void Snapshot::InputFile(string file){
 	ifstream inputFile(file);
 	string line;
@@ -95,7 +119,13 @@ void Snapshot::InputFile(string file){
 
 
 
-//Print to the console the three matrices as well as the available resource array
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Writer(s): Geoffrey Morris
+  Purpose  : Print to the console the three matrices as well as the available resource array
+  Incoming : N/A
+  Outgoing : Shows the current state of the system
+  Return   : N/A
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void Snapshot::PrintState(){
 	
 	cout << "Max Demand matrix:" << endl;
@@ -158,6 +188,13 @@ void Snapshot::PrintState(){
 	cout << endl << endl;
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Writer(s): Geoffrey Morris & Jeffrey Allen
+  Purpose  : Tests to see if the system is safe.
+  Incoming : N/A
+  Outgoing : decision of whether or not state is safe
+  Return   : bool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 bool Snapshot::testSafeState()
 {
 
@@ -246,6 +283,13 @@ bool Snapshot::testSafeState()
 
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Writer(s): Geoffrey Morris & Jeffrey Allen
+  Purpose  : Asks if the resource can be requested
+  Incoming : a process, a vector which specifies the resources the process is requesting
+  Outgoing : A decision of whether the process request is ok
+  Return   : N/A
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void Snapshot::resourceRequest(int processIndex, int request [])
 {
 	bool goAheadAndWURK;
@@ -282,9 +326,11 @@ void Snapshot::resourceRequest(int processIndex, int request [])
 	}
 
 	if (testSafeState())
-		cout << "We're cool." << endl;
-	else 
 	{
+		cout << "We're cool." << endl;
+
+	} else {
+
 		cout << "RUN! RUN FOR YOUR LIVES! YOU'RE NOT SAFE!!!" << endl;
 		cout << "This request is NOT SAFE!!!!!! Reverting back to a safe state . . ." << endl;
 
