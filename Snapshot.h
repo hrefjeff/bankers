@@ -38,6 +38,7 @@ class Snapshot
 public:
 	Snapshot();
 	void InputFile(string file);
+	bool IsEmpty();
 	void PrintState();
 	bool testSafeState();
 	void resourceRequest(int processIndex, int request []);
@@ -118,6 +119,18 @@ void Snapshot::InputFile(string file){
 }
 
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Writer(s): Geoffrey Morris
+Purpose  : Return whether the snapshot has been taken (full) or not (empty)
+Incoming : N/A
+Outgoing : Whether the snapshot has been taken
+Return   : bool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/bool Snapshot::IsEmpty(){
+	if (processName.empty()){
+		return true;
+	}
+	else return false;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Writer(s): Geoffrey Morris

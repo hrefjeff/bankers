@@ -33,29 +33,48 @@ int main()
 			}
 
 			case 2:{
-				currentState.PrintState(); //Print the current state to the console
+				if (!currentState.IsEmpty()){
+					currentState.PrintState(); //Print the current state to the console
+				}
+				else{
+					cout << "Please take a snapshot of the current state first!" << endl << endl;
+				}
 				system("pause");
 				break;
 			}
 
 			case 3:{
-				safeState = currentState.testSafeState();
-				if (safeState){
-					cout << endl << "State is SAFE" << endl << endl;
-					system("pause");
-					break;
+				if (!currentState.IsEmpty()){
+					safeState = currentState.testSafeState();
+					if (safeState){
+						cout << endl << "State is SAFE" << endl << endl;
+						system("pause");
+						break;
+					}
+					else{
+						cout << endl << "State is UNSAFE" << endl << endl;
+						system("pause");
+						break;
+					}
 				}
 				else{
-					cout << endl << "State is UNSAFE" << endl << endl;
+					cout << "Please take a snapshot of the current state first!" << endl << endl;
 					system("pause");
 					break;
 				}
 			}
 
 			case 4:{
-				currentState.resourceRequest(1, requestVector);
-				system("pause");
-				break;
+				if (!currentState.IsEmpty()){
+					currentState.resourceRequest(1, requestVector);
+					system("pause");
+					break;
+				}
+				else{
+					cout << "Please take a snapshot of the current state first!" << endl << endl;
+					system("pause");
+					break;
+				}
 			}
 		}
 	}while (command != 5);
