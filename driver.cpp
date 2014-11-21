@@ -1,3 +1,20 @@
+/****************************************************
+    Names       : Geoffrey Morris & Jeffrey Allen
+    Date        : CS420 Spring 2014
+    Assignment  : Banker's Algorithm
+    Description : The Banker's Algorithm is a deadlock avoidance algorithm.
+    			  In this implementation, it is done by taking a snapshot of
+    			  the current state of the system, and testing to see if in fact
+    			  deadlock has occured.
+    			  
+    			  The Resource-Request Algorithm implemented here allows a
+    			  user to send a resource request to the system and give
+    			  feed-back on whether or not deadlock will occur.
+
+    			  Default values from "Operating Systems Concepts" PG340, Question 7.3 are used.
+    Due Date    : November 20, 2014
+*****************************************************/
+
 #include "Globals.h"
 #include "Snapshot.h"
 

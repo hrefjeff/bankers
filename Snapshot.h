@@ -2,7 +2,10 @@
     Names       : Geoffrey Morris & Jeffrey Allen
     Date        : CS420 Spring 2014
     Assignment  : Banker's Algorithm
-    Description : 
+    Description : This file declares and implements all necessary functions
+    			  needed to run the Banker's Algorithm which consists of the:
+    			  a) Saftey Algorithm
+    			  b) Resource-Request Algorithm
     Due Date    : November 20, 2014
 *****************************************************/
 
@@ -12,6 +15,8 @@
 #include <string>
 #include <vector>
 using namespace std;
+
+//##########################DECLARATION##################################################
 
 class Snapshot
 {
