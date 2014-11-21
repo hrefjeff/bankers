@@ -12,6 +12,11 @@
     			  feed-back on whether or not deadlock will occur.
 
     			  Default values from "Operating Systems Concepts" PG340, Question 7.3 are used.
+
+				  ----------------Github--------------------
+    			  https://github.com/jeffreyallen92/bankers
+    			  ------------------------------------------
+
     Due Date    : November 20, 2014
 *****************************************************/
 

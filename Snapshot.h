@@ -6,6 +6,11 @@
     			  needed to run the Banker's Algorithm which consists of the:
     			  a) Saftey Algorithm
     			  b) Resource-Request Algorithm
+
+				  ----------------Github--------------------
+    			  https://github.com/jeffreyallen92/bankers
+    			  ------------------------------------------
+
     Due Date    : November 20, 2014
 *****************************************************/
 
